@@ -1,12 +1,13 @@
-class st {
-	_s:number[];
-	_s0:number[];
-	_q:number;
-	_type:string;
-	_mth:number[][]
+export default class Screw {
+	private _s:number[] 	//unit vector
+	private _s0:number[]	//position vector
+	private _q:number		//variable rotation/translation
+	private _type:string	//type of joint 
+	private _mth:number[][]	//homogeneous transformation matrix
+
 	constructor(){
-		this._s = [0, 0, 0];
-		this._s0 = [0, 0, 1];
+		this._s = [0, 0, 1];
+		this._s0 = [0, 0, 0];
 		this._type = "revolute";
 		this._q = 0;
 		this._mth = this.getMth();
@@ -16,32 +17,48 @@ class st {
 		return this._s
 	}
 
+	set s(linkSize:number[]){
+		this._s = linkSize
+	}
+
 	get s0():number[]{
 		return this._s0
+	}
+	set s0(newS0:number[]){
+		this._s0 = newS0
 	}
 
 	get type():string{
 		return this._type;
 	}
-	
+
+	//TODO: Change the type os screw to something that can be evaluated to be either revolute or prismatic.
+	set type(typeOfScrew: string){
+		this._type = typeOfScrew;
+	}	
+
 	get q():number{
 		return this._q;
+	}
+
+	set q(q:number){
+		this._q = q
 	}
 
 	getMth():number[][]{
 		return this._mth
 	}
 
-	setMth(q:number){
+	setMth(){
 		let theta:number;
 		let t:number;
 
 		if(this.type == "revolute"){
-		theta = q;
+		theta = this.q;
 		t = 0;
 		}else{
 			theta = 0;
-			t = q;
+			t = this.q;
 		}
 		
 		let a11 = Math.cos(theta) + this.s[0]**2*(1 - Math.cos(theta))
