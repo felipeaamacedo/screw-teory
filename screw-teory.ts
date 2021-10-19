@@ -10,6 +10,7 @@ export default class Screw {
 		this._s0 = [0, 0, 0];
 		this._type = "revolute";
 		this._q = 0;
+		this.setMth()
 		this._mth = this.getMth();
 	}
 
