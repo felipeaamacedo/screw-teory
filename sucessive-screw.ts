@@ -19,17 +19,36 @@ export default class Screw_Mechanism{
         this._screws.pop()
     }
 
-    forwardKinematics():number[][]{
-        let MTH_tot:number[][] =   [[1,0,0,0],
-                                    [0,1,0,0],
-                                    [0,0,1,0],
-                                    [0,0,0,1]]
-        let screws:Screw[] = this.screws
-        for (let i=0; i<screws.length-1; i++){
-            //TODO: Do a forwardKinematics in each of the joints to change the position of all of them.
-           MTH_tot = mathjs.multiply(MTH_tot, screws[i].getMth()) 
+    forwardKinematics(){
+        let MTHProdutorio:number[][] =   [[1,0,0,0],
+                                          [0,1,0,0],
+                                          [0,0,1,0],
+                                          [0,0,0,1]]
+        let MTHProdutAteAnterior:number[][] =   [[1,0,0,0],
+                                                 [0,1,0,0],
+                                                 [0,0,1,0],
+                                                 [0,0,0,1]]
+
+        if (this.screws.length == 1){
+            return this.screws[0].mth
         }
 
-        return MTH_tot;
+        for(let i = 0; this.screws.length-1; i++){
+            if(i===0){
+                MTHProdutorio = this.screws[i].mth
+                MTHProdutAteAnterior = this.screws[i].mth
+            }else{
+                if(!mathjs.multiply(this.screws[i].mth, MTHProdutorio)){
+                           console.log('Falha em mathjs.multiply(this.screws[i].getMth(), MTHProdutorio)') 
+                           break;
+                }else{
+                    MTHProdutorio = mathjs.multiply(this.screws[i].mth, MTHProdutAteAnterior)
+                }
+            }
+
+            this.screws[i].mth = MTHProdutorio 
+            MTHProdutAteAnterior = MTHProdutorio    
+        }
+        return MTHProdutorio
     }
 }
