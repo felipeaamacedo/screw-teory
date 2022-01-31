@@ -1,5 +1,7 @@
+import { multiply } from "mathjs"
 import Screw from "./screw-teory"
 import Screw_Mechanism from "./sucessive-screw"
+import mathjs from "mathjs"
 
 const S = new Screw()
 const L = new Screw()
@@ -15,6 +17,14 @@ MH5F.addScrew(U)
 MH5F.addScrew(R)
 MH5F.addScrew(B)
 MH5F.addScrew(T)
+
+console.log(S)
+console.log(L)
+console.log(U)
+console.log(R)
+console.log(B)
+console.log(T)
+
 
 S.s = [0, 0, 1]
 S.s0 = [0, 0, 0]
@@ -49,4 +59,8 @@ console.log(U)
 console.log(R)
 console.log(B)
 console.log(T)
-// console.log(MH5F.forwardKinematics())
+console.log("length");
+console.log(MH5F.screws.length - 1);
+let ferramenta:number[][]=[[0,0,1,585],[0,-1,0,0],[1,0,0,350],[0,0,0,1]]
+
+console.log(multiply(MH5F.forwardKinematics(),ferramenta))

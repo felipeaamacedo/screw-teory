@@ -34,7 +34,6 @@ export default class Screw {
 		return this._type;
 	}
 
-	//TODO: Change the type os screw to something that can be evaluated to be either revolute or prismatic.
 	set type(typeOfScrew: typeOfScrew){
 		this._type = typeOfScrew;
 	}	

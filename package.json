@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/felipeaamacedo/screw-teory#readme",
   "dependencies": {
+    "@felipeaamacedo/matrix-ts": "^1.0.4",
     "@types/mathjs": "^9.4.2",
     "mathjs": "^9.5.1"
   }
